@@ -1,0 +1,38 @@
+{
+  "tenant_id": "client_tenant_089f2x",
+  "client_name": "REDACTED_ENTERPRISE_ORGANIZATION",
+  "deployment_environment": "edge-node-production",
+  "aios_core_version": "1.4.0",
+  "routing_gateways": {
+    "voice_sip_provider": "twilio",
+    "inbound_webhook_path": "https://api.soloedge.app/v1/webhooks/inbound/REDACTED_CLIENT_TOKEN",
+    "supported_channels": ["voice", "sms", "web-chat"]
+  },
+  "agent_cluster_configuration": {
+    "primary_receptionist": {
+      "agent_id": "riley-receptionist-v2",
+      "identity_type": "multilingual_voice_assistant",
+      "default_language_iso": "en-US",
+      "fallback_language_iso": "es-MX",
+      "bilingual_bridge_logic": {
+        "auto_detect_intent_confidence_threshold": 0.85,
+        "seamless_handoff_enabled": true
+      },
+      "execution_authority_boundary": "strict_isolated_payload"
+    }
+  },
+  "orchestration_layer": {
+    "platform": "n8n",
+    "execution_mode": "asynchronous_queue",
+    "retry_backoff_policy": {
+      "max_attempts": 3,
+      "initial_delay_ms": 1000,
+      "multiplier": 2.0
+    }
+  },
+  "telemetry_and_logging": {
+    "logging_strategy": "state_change_only",
+    "transaction_log_destination": "local_secure_cache_store",
+    "heartbeat_monitor_port": 8085
+  }
+}config-templates/client-template.json
